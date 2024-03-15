@@ -1,5 +1,13 @@
 <h1>Create a new article</h1>
-<%= form_with(model: @article, local: true, data:{turbo: false}) do |f| %>
+<%if @article.errors.any?%>
+        <h4>The following errors prevented the <%= @article.class.name.downcase %> from being saved</h4>
+        <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+        </ul>
+<% end %>   
+<%= form_with scope: :article, url: articles_path, local: true, data:{turbo: false} do |f| %>
 
     <p>
         <%= f.label :title %><br/>
